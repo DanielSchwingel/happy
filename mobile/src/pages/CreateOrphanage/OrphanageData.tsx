@@ -26,7 +26,7 @@ export default function OrphanageData() {
   const route = useRoute();
   const params = route.params as OrphanageDataRouteParams;
 
-  function handleCreateOrphanage(){
+  async function handleCreateOrphanage(){
     const { latitude, longitude } = params.position;
     console.log({
       name,
@@ -48,14 +48,15 @@ export default function OrphanageData() {
     data.append('open_on_weekends', String(open_on_weekends));
 
     images.forEach(( image,index ) => {
-      data.append('image', {
+      data.append('images', {
         name: `image_${index}.jpg`,
         type: 'image/jpg',
         uri: image,
       } as any)
     })
 
-    api.post('orphanges', data);
+    await api.post('orphanages', data);
+
     navigation.navigate('OrphanagesMap');
   };
 

@@ -30,7 +30,7 @@ export default function OrphanagesMap() {
 		api.get('orphanages').then(response => {
 			setOrphanages(response.data);
 		})
-	},[])
+	})
 
     return(
         <View style={styles.container}>
