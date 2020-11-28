@@ -24,6 +24,14 @@
     background: url('../../images/landing.svg') no-repeat 80% center;
 }
 
+#page-landing header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 450px;
+}
+
 #page-landing .content-wrapper main {
     max-width: 350px;
 }
@@ -41,21 +49,42 @@
 }
 
 .content-wrapper .location {
-    position: absolute;
-    right: 0;
-    top: 0;
-
     font-size: 24px;
     line-height: 34px;
 
     display: flex;
     flex-direction: column;
 
-    text-align: right;
+    text-align: left;
 }
 
 .content-wrapper .location strong {
     font-weight: 800;
+}
+
+.content-wrapper .restricted-access {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 222px;
+    height: 56px;
+    background: #12D4E0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    font-size: 20;
+    font-weight: 800;
+    color: #FFFFFF;
+    text-decoration: none;
+
+    transition: background-color 0.2s;
+}
+
+.content-wrapper .restricted-access:hover {
+    background: #96FEFF;
+    color: #15C3D6;
 }
 
 .content-wrapper .enter-app {
