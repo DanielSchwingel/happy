@@ -1,0 +1,25 @@
+.app-branding {
+   width: 60%;
+   height: 100vh;
+   background: linear-gradient(329.54deg, #29B6D1 0%, #00C7C7 100%);
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+}
+
+.app-branding .location {
+   font-size: 24px;
+   line-height: 34px;
+   margin-top: 70px;
+
+   display: flex;
+   flex-direction: column;
+
+   text-align: center;
+}
+
+.app-branding .location strong {
+   font-weight: 800;
+}

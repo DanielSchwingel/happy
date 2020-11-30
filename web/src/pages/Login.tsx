@@ -6,33 +6,28 @@ import '../styles/global.css';
 import '../styles/pages/login.css';
 
 import logoImg from '../images/logo-login.svg';
+import Branding from '../components/Branding';
 
 function Login(){
     return(
         <div id="page-login">
-            <div className="content-left">
-                <img src={logoImg}/>
-                <div className="location">
-                    <strong>Concórdia</strong>
-                    <span>Santa Catarina</span>
-                </div>
-            </div>
-            <div className="content-right">
-                <Link to='/' className="backing-landing">
+            <Branding />
+            <div className="content">
+                <Link to='/' className="back-landing">
                     <FiArrowLeft size={26} color="#15C3D6" />
                 </Link>
                 <form>
                     <h1>Fazer login</h1>
-                    <div className='field-text'> 
+                    <div className='field-column'> 
                         <label>E-mail</label>
                         <input type='email' />
                     </div>
-                    <div className="field-text">
+                    <div className="field-column">
                         <label>Senha</label>
                         <input type='password'/>
                     </div>
-                    <div className="field-check">
-                        <div>
+                    <div className="field-row">
+                        <div style={{display:'flex', alignItems:'center'}}>
                             <input type="checkbox" /> <span>Lembrar-me</span>
                         </div>
                         <Link to='/' className="forgot-password">

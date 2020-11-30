@@ -1,45 +1,14 @@
 #page-login {
-    width: 100vw;
-    height: 100vh;
-
     display: flex;
-    flex-direction: row;
 }
 
-#page-login .content-left {
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(329.54deg, #29B6D1 0%, #00C7C7 100%);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
-#page-login .content-left .location {
-    font-size: 24px;
-    line-height: 34px;
-    margin-top: 70px;
-
-    display: flex;
-    flex-direction: column;
-
-    text-align: center;
-}
-
-#page-login .content-left .location strong {
-    font-weight: 800;
-}
-
-#page-login .content-right {
-    min-width: 40%;
-    min-height: 100%;
+#page-login .content {
+    width: 40%;
     background: #FFFFFF;
     padding: 30px;
 }
 
-#page-login .content-right .backing-landing {
+#page-login .content .back-landing {
     background: #EBF2F5;
     width: 48px;
     height: 48px;
@@ -51,12 +20,12 @@
     margin-left: 90%;
 }
 
-#page-login .field-text {
+#page-login .field-column {
     display: flex;
     flex-direction: column;
 }
 
-#page-login .field-check {
+#page-login .field-row {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -70,7 +39,7 @@
     margin: 10px 0px;
 }
 
-#page-login .field-text input {
+#page-login .field-column input {
     background: #F5F8FA;
     border: 1px solid #A1E9C5;
     border-radius: 20px;
@@ -79,18 +48,18 @@
     color: #5C8599;
 }
 
-#page-login .content-right form {
+#page-login .content form {
     padding: 50px;
 }
 
-#page-login .content-right h1 {
+#page-login .content h1 {
     color: #4D6F80;
     font-size: 54px;
     line-height: 54px;
     margin-bottom: 50px;
 }
 
-#page-login .content-right .button-submit {
+#page-login .content .button-submit {
     background: #37C77F;
     color: #FFFFFF;
     width: 100%;
@@ -99,12 +68,24 @@
     border: none;
 }
 
-#page-login .content-right .field-check .forgot-password {
+#page-login .content .field-row input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    border: solid 1px #D3E2E5;
+    border-radius: 8px;
+    background-color: #F5F8FA;
+}
+
+#page-login .content .field-row input[type="checkbox"]:before {
+    background-color: #37C77F;
+}
+
+#page-login .content .field-row .forgot-password {
     color: #8FA7B2;
     text-decoration: none;
 }
 
-#page-login .content-right .field-check span{
+#page-login .content .field-row span{
     margin-left: 15px;
 }
 
