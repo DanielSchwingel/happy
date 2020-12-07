@@ -5,6 +5,8 @@ import UsersController from './controllers/UsersController';
 
 import uploadConfig from './config/upload';
 
+import authentication from './middlewares/authentication';
+
 const routes = Router();
 const upload = multer(uploadConfig);
 
@@ -13,6 +15,8 @@ routes.get('/orphanages/:id', OrphanagesController.show);
 routes.post('/orphanages', upload.array('images') ,OrphanagesController.create);
 
 routes.post('/users', UsersController.create);
+routes.post('/authenticate', UsersController.authenticate);
+routes.get('/users', authentication.verifyToken, UsersController.show);
 
 
 export default routes;

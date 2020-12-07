@@ -9,7 +9,7 @@ export default function SidebarDashboard() {
    return(
 		<aside className="app-sidebar-dashboard">
 			<img src={mapMarkerImg} alt="Happy" />
-         <div className="options">
+         <div>
             <NavLink exact to="/orphanages" activeClassName="option-selected">
                <FiMapPin size={24} color="#FFF" />
             </NavLink>

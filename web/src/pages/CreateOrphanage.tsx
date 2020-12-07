@@ -72,117 +72,117 @@ export default function CreateOrphanage() {
 
 	return (
 		<div id="page-create-orphanage">
-		<Sidebar/>
+			<Sidebar/>
 
-		<main>
-        	<form className="create-orphanage-form" onSubmit={handleSubmit}>
-          	<fieldset>
-            	<legend>Dados</legend>
+			<main>
+				<form className="create-orphanage-form" onSubmit={handleSubmit}>
+					<fieldset>
+						<legend>Dados</legend>
 
-					<Map 
-						center={[-27.2332502,-52.0298333]} 
-						style={{ width: '100%', height: 280 }}
-						zoom={15}
-						onclick={handleMapClick}
-					>
-						<TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-						{position.latitude !== 0 && (
-							<Marker 
-								interactive={false} 
-								icon={mapIcon} 
-								position={[position.latitude,position.longitude]} 
-							/>
-						)}
-						
-					</Map>
-
-					<div className="input-block">
-						<label htmlFor="name">Nome</label>
-						<input 
-							id="name"
-							value={name}
-							onChange={event => (setName(event.target.value))}
-						/>
-					</div>
-
-					<div className="input-block">
-						<label htmlFor="about">Sobre <span>Máximo de 300 caracteres</span></label>
-						<textarea 
-							id="about" 
-							maxLength={300} 
-							value={about}
-							onChange={event => (setAbout(event.target.value))}
-						/>
-					</div>
-
-					<div className="input-block">
-						<label htmlFor="images">Fotos</label>
-
-						<div className="images-container">
-							{previewImages.map(image =>{
-								return(
-									<img key={image} src={image} alt={name}/>
-								)
-							})}
-							<label htmlFor='image[]' className="new-image">
-								<FiPlus size={24} color="#15b6d6" />
-							</label >
-						</div>
-
-						<input multiple onChange={handleSelectImages} type='file' id='image[]' />
-
-
-					</div>
-          	</fieldset>
-
-				<fieldset>
-					<legend>Visitação</legend>
+						<Map 
+							center={[-27.2332502,-52.0298333]} 
+							style={{ width: '100%', height: 280 }}
+							zoom={15}
+							onclick={handleMapClick}
+						>
+							<TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+							{position.latitude !== 0 && (
+								<Marker 
+									interactive={false} 
+									icon={mapIcon} 
+									position={[position.latitude,position.longitude]} 
+								/>
+							)}
+							
+						</Map>
 
 						<div className="input-block">
-							<label htmlFor="instructions">Instruções</label>
-							<textarea 
-								id="instructions" 
-								value={instructions}
-								onChange={event => (setInstructions(event.target.value))}
-							/>
-						</div>
-
-						<div className="input-block">
-							<label htmlFor="opening_hours">Horário de atendimento</label>
+							<label htmlFor="name">Nome</label>
 							<input 
-								id="opening_hours"
-								value={opening_hours}
-								onChange={event => (setOpeningHours(event.target.value))}
+								id="name"
+								value={name}
+								onChange={event => (setName(event.target.value))}
 							/>
 						</div>
 
 						<div className="input-block">
-							<label htmlFor="open_on_weekends">Atende fim de semana</label>
-
-							<div className="button-select">
-								<button 
-									type="button" 
-									className={open_on_weekends ? "active" : ""}
-									onClick={()=>setOpenOnWeekends(true)}
-								>
-									Sim
-								</button>
-								<button 
-									type="button"
-									className={!open_on_weekends ? "active" : ""}
-									onClick={()=>setOpenOnWeekends(false)}
-								>
-									Não
-								</button>
-							</div>
+							<label htmlFor="about">Sobre <span>Máximo de 300 caracteres</span></label>
+							<textarea 
+								id="about" 
+								maxLength={300} 
+								value={about}
+								onChange={event => (setAbout(event.target.value))}
+							/>
 						</div>
-          </fieldset>
 
-          <button className="confirm-button" type="submit">
-            Confirmar
-          </button>
-        </form>
-      </main>
+						<div className="input-block">
+							<label htmlFor="images">Fotos</label>
+
+							<div className="images-container">
+								{previewImages.map(image =>{
+									return(
+										<img key={image} src={image} alt={name}/>
+									)
+								})}
+								<label htmlFor='image[]' className="new-image">
+									<FiPlus size={24} color="#15b6d6" />
+								</label >
+							</div>
+
+							<input multiple onChange={handleSelectImages} type='file' id='image[]' />
+
+
+						</div>
+					</fieldset>
+
+					<fieldset>
+						<legend>Visitação</legend>
+
+							<div className="input-block">
+								<label htmlFor="instructions">Instruções</label>
+								<textarea 
+									id="instructions" 
+									value={instructions}
+									onChange={event => (setInstructions(event.target.value))}
+								/>
+							</div>
+
+							<div className="input-block">
+								<label htmlFor="opening_hours">Horário de atendimento</label>
+								<input 
+									id="opening_hours"
+									value={opening_hours}
+									onChange={event => (setOpeningHours(event.target.value))}
+								/>
+							</div>
+
+							<div className="input-block">
+								<label htmlFor="open_on_weekends">Atende fim de semana</label>
+
+								<div className="button-select">
+									<button 
+										type="button" 
+										className={open_on_weekends ? "active" : ""}
+										onClick={()=>setOpenOnWeekends(true)}
+									>
+										Sim
+									</button>
+									<button 
+										type="button"
+										className={!open_on_weekends ? "active" : ""}
+										onClick={()=>setOpenOnWeekends(false)}
+									>
+										Não
+									</button>
+								</div>
+							</div>
+				</fieldset>
+
+				<button className="confirm-button" type="submit">
+					Confirmar
+				</button>
+			</form>
+			</main>
     </div>
   );
 }

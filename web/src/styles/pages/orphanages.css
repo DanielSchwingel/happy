@@ -1,0 +1,28 @@
+#page-orphanages {
+   display: flex;
+}
+ 
+ #page-orphanages main {
+   flex: 1;
+ }
+ 
+
+#page-orphanages main header {
+   border-bottom: solid 1px #D3E2E5;
+   margin: 64px auto;
+   width: 1120px;
+
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+#page-orphanages main header h1 {
+   color: #4D6F80;
+   font-size: 32px;
+}
+
+#page-orphanages main header span {
+   color: #8FA7B2;
+
+}

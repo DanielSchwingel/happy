@@ -4,6 +4,11 @@ import { getRepository } from 'typeorm';
 import bcrypt from 'bcrypt';
 import * as Yup from 'yup';
 
+import authentication from '../middlewares/authentication';
+interface iUser {
+   id: number,
+   name: string
+}
 const saltRoudns = 10;
 
 export default {
@@ -30,5 +35,30 @@ export default {
 		const user = userRepository.create(data); 
 		await userRepository.save(user);
 		return response.status(201).json(user);
+   },
+
+   async authenticate(request: Request, response: Response){
+      const { email, password } = request.body;
+
+      const userRepository = getRepository(User);
+      const user = await userRepository.findOne({email});
+
+      const match = await bcrypt.compare(password, String(user?.password))
+
+      if (match) {
+         const userJwt = {
+            id: user?.id,
+            name: user?.name
+         } as iUser;
+         const token = authentication.generateToken(userJwt);
+         console.log(`token ${token}`)
+         return response.status(200).json({token});
+      }
+
+      return response.json({message: 'deu ruim'});
+   },
+
+   show(request: Request, response: Response) {
+      return response.status(200).json({id: 1, name:'Teste'})
    }
 }

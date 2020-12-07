@@ -9,64 +9,39 @@ aside.app-sidebar-dashboard {
    justify-content: space-between;
    align-items: center;
 }
- 
+
 aside.app-sidebar-dashboard img {
    width: 48px;
 }
 
-aside.app-sidebar-dashboard .options {
-   display: flex;
-   flex-direction: column;
-}
-
-aside.app-sidebar-dashboard a.option-selected {
-   background: #FFD666;
-}
-
-a.option-selected svg {
-   color: rgb(0, 137, 165)
-   
-}
-
-aside.app-sidebar-dashboard a {
-   width: 48px;
-   height: 48px;
- 
-   border: 0;
- 
-   background: red;
-   border-radius: 16px;
- 
-   cursor: pointer;
-   /* transition: background-color 0.2s; */
- 
-   display: flex;
-   justify-content: center;
-   align-items: center; 
-}
-aside.app-sidebar-dashboard footer button {
-   width: 48px;
-   height: 48px;
- 
-   border: 0;
- 
-   background: #12AFCB;
-   border-radius: 16px;
- 
-   cursor: pointer;
- 
-   transition: background-color 0.2s;
- 
-   display: flex;
-   justify-content: center;
-   align-items: center;
-}
-
 aside.app-sidebar-dashboard a,
+aside.app-sidebar-dashboard footer button {
+  width: 48px;
+  height: 48px;
+
+  border: 0;
+
+  background: #12AFCB;
+  border-radius: 16px;
+
+  cursor: pointer;
+
+  transition: background-color 0.2s;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+aside.app-sidebar-dashboard a:hover,
 aside.app-sidebar-dashboard footer button:hover {
-   background: #17D6EB;
+  background: #17D6EB;
 }
 
 aside.app-sidebar-dashboard a {
    margin-bottom: 10px;
+}
+
+aside.app-sidebar-dashboard .option-selected {
+   background: #FFD666;
 }
