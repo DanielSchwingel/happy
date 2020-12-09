@@ -3,12 +3,8 @@ import User from '../models/User';
 import { getRepository } from 'typeorm';
 import bcrypt from 'bcrypt';
 import * as Yup from 'yup';
+import jwt from 'jsonwebtoken';
 
-import authentication from '../middlewares/authentication';
-interface iUser {
-   id: number,
-   name: string
-}
 const saltRoudns = 10;
 
 export default {
@@ -46,19 +42,36 @@ export default {
       const match = await bcrypt.compare(password, String(user?.password))
 
       if (match) {
-         const userJwt = {
+         const token = jwt.sign({
             id: user?.id,
             name: user?.name
-         } as iUser;
-         const token = authentication.generateToken(userJwt);
-         console.log(`token ${token}`)
-         return response.status(200).json({token});
+         }, 
+         String(process.env.SECRET_KEY_API), 
+         {
+            expiresIn: 20
+         });
+         return response.status(200).json({
+            user : {
+               id: user?.id, 
+               name: user?.name
+            }, 
+            token 
+         });
       }
 
-      return response.json({message: 'deu ruim'});
+      return response.status(401).json({message: 'Dados inválidos'});
    },
 
    show(request: Request, response: Response) {
-      return response.status(200).json({id: 1, name:'Teste'})
+      return response.status(200).json([
+         {
+            id: 1, 
+            name:'Teste'
+         },
+         {
+            id: 2, 
+            name:'urucubaca'
+         },
+      ])
    }
 }

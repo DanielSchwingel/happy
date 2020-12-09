@@ -1,19 +1,28 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useContext } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+// import { useHistory } from "react-router-dom";
 
 import Branding from '../components/Branding';
-import api from '../services/api';
+import { AuthContext } from '../contexts/AuthContext';
+import { iUserLogin } from '../interfaces/user';
 
 function Login(){
+    const { signed ,signIn } = useContext(AuthContext)
     const [ email, setEmail ] =  useState('');
     const [ password, setPassword ] = useState('');
+    // const history = useHistory();
 
-    async function handleLogin(event: FormEvent) {
+    function handleLogin(event: FormEvent) {
         event.preventDefault();
-        console.log(password)
-        const response = await api.post('/authenticate', { email, password});
-        console.log(response.data);
+        const user = {
+            email,
+            password
+        } as iUserLogin;
+        signIn(user);
+        if (signed) {
+            // history.push('/orphanages')
+        }
     }
 
     return(
