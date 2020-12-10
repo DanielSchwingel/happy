@@ -1,17 +1,15 @@
 import React, { useState, FormEvent, useContext } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-// import { useHistory } from "react-router-dom";
 
 import Branding from '../components/Branding';
 import { AuthContext } from '../contexts/AuthContext';
 import { iUserLogin } from '../interfaces/user';
 
 function Login(){
-    const { signed ,signIn } = useContext(AuthContext)
+    const { signIn } = useContext(AuthContext)
     const [ email, setEmail ] =  useState('');
     const [ password, setPassword ] = useState('');
-    // const history = useHistory();
 
     function handleLogin(event: FormEvent) {
         event.preventDefault();
@@ -19,10 +17,9 @@ function Login(){
             email,
             password
         } as iUserLogin;
-        signIn(user);
-        if (signed) {
-            // history.push('/orphanages')
-        }
+        signIn(user).catch(error => {
+            alert(error)
+        });
     }
 
     return(

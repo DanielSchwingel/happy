@@ -12,9 +12,9 @@ export default {
    verifyJWT(request: Request, response: Response, next: NextFunction) {
       const { authorization } = request.headers;
       if (!authorization) {
-         return response.sendStatus(401);
+         return response.status(401).json({message: 'sem token'});
       }
-      const token = authorization.replace('Baerer', '').trim();
+      const token = authorization.replace('Bearer', '').trim();
       
       try {
          const data = jwt.verify(token, String(process.env.SECRET_KEY_API))
@@ -23,7 +23,7 @@ export default {
          request.userName = name;
          next();
       } catch {
-         return response.sendStatus(401);
+         return response.status(401).json({message: 'token não confere'});
       }
    }
 }

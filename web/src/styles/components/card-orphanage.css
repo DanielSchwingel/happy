@@ -1,0 +1,42 @@
+#app-card-orphanage {
+	background: #FFFFFF;
+	border: 1px solid #D3E2E5;
+	border-radius: 20px;
+	margin-bottom: 10px;
+}
+
+#app-card-orphanage footer {
+	padding: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+#app-card-orphanage footer p {
+	line-height: 24px;
+	font-weight: bold;
+	color: #4D6F80;
+	text-decoration: none;
+}
+
+#app-card-orphanage footer .options {
+	display: flex;
+}
+
+#app-card-orphanage footer .options a {
+	height: 48px;
+	width: 48px;
+	margin-left: 10px;
+	background-color: #EBF2F5;
+	border-radius: 10px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#app-card-orphanage .leaflet-container {
+	border-bottom: 1px solid #DDE3F0;
+	border-radius: 20px;
+}
+ 

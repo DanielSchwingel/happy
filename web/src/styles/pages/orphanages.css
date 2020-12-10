@@ -24,5 +24,12 @@
 
 #page-orphanages main header span {
    color: #8FA7B2;
+}
 
+#page-orphanages main .orphanages-content {
+   width: 1120px;
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   grid-column-gap: 30px;
+   margin: 64px auto;
 }

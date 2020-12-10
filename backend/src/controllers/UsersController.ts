@@ -48,7 +48,7 @@ export default {
          }, 
          String(process.env.SECRET_KEY_API), 
          {
-            expiresIn: 20
+            expiresIn: 86400
          });
          return response.status(200).json({
             user : {

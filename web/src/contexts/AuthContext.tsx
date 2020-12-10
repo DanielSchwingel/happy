@@ -30,7 +30,7 @@ const AuthProvider: React.FC = ({ children })=> {
 
          localStorage.setItem('@HAPPYAuth:user', JSON.stringify(user))
          localStorage.setItem('@HAPPYAuth:token', JSON.stringify(token))
-         api.defaults.headers.authorization = `Bearer ${token}`;
+         api.defaults.headers.Authorization = `Bearer ${token}`;
          setUser(user);
          console.log(`user ${Boolean(user)}`)
          history.push('/orphanages')
