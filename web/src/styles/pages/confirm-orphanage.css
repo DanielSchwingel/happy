@@ -1,0 +1,55 @@
+#page-confirm-orphanage {
+   height: 100vh;
+   width: 100vw;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: #37C77F;
+}
+
+#page-confirm-orphanage header {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin-right: 100px;
+}
+
+#page-confirm-orphanage header h1 {
+   font-size: 80px;
+   font-weight: 900;
+   margin-bottom: 30px;
+}
+
+#page-confirm-orphanage header p {
+   font-size: 24px;
+   font-weight: 500;
+   width: 450px;
+   margin-bottom: 30px;
+   text-align: center;
+}
+
+#page-confirm-orphanage header button {
+   width: 243px;
+   height: 64px;
+   
+   border: none;
+   border-radius: 20px;
+
+   background: #31B272;
+   color: #FFFFFF;
+   font-size: 18;
+   font-weight: 900;
+
+   transition: background 0.2s;
+}
+
+#page-confirm-orphanage header button:hover {
+   background: #3BD689;
+}
+
+#page-confirm-orphanage main img {
+   margin-left: 100px;
+}
+

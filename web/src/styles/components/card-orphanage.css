@@ -35,6 +35,19 @@
 	align-items: center;
 }
 
+#app-card-orphanage footer button {
+	height: 48px;
+	width: 48px;
+	margin-left: 10px;
+	background-color: #EBF2F5;
+	border-radius: 10px;
+	border: none;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 #app-card-orphanage .leaflet-container {
 	border-bottom: 1px solid #DDE3F0;
 	border-radius: 20px;

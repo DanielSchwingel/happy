@@ -4,7 +4,6 @@ import CardOrphanage from '../components/CardOrphanage';
 import SidebarDashboard from '../components/SidebarDashboard';
 import api from '../services/api';
 
-
 import '../styles/pages/orphanages.css';
 
 interface iOrphanage {
@@ -12,14 +11,7 @@ interface iOrphanage {
 	name: string;
 	latitude: number;
 	longitude: number;
-	about: string;
-	instructions: string;
-	opening_hours: string;
-	open_on_weekends: string;
-	images: Array<{
-		id: number;
-		url: string;
-	}>
+   pending: number;
 }
 
 const Orphanages: React.FC = () => {
@@ -27,7 +19,7 @@ const Orphanages: React.FC = () => {
 
    useEffect(()=>{
       api.get('dashboard').then( response =>{
-			setOrphanages(response.data);
+         setOrphanages(response.data);
 		}).catch(error=>alert(error));
    },[])
 
@@ -43,15 +35,22 @@ const Orphanages: React.FC = () => {
                   {orphanages?.length} orfanato(s)
                </span>
             </header>
+            
             <div className="orphanages-content">
                {orphanages?.map(orphanage =>{
                   return (
-                     <CardOrphanage id={orphanage.id} name={orphanage.name} latitude={orphanage.latitude} longitude={orphanage.longitude} key={orphanage.id} />
+                     <CardOrphanage 
+                        key={orphanage.id}
+                        id={orphanage.id} 
+                        name={orphanage.name} 
+                        latitude={orphanage.latitude} 
+                        longitude={orphanage.longitude}  
+                        pending={orphanage.pending}
+                     />
                   )
                })
                }
-            </div>
-
+            </div>     
          </main>
       </div>
    )

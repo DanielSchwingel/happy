@@ -33,3 +33,19 @@
    grid-column-gap: 30px;
    margin: 64px auto;
 }
+
+#page-orphanages main .no-results {
+   width: 1120px;
+   height: 100%;
+   margin: 64px auto;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+}
+#page-orphanages main .no-results p {
+   font-size: 24px;
+   font-weight: 500;
+   color: #8FA7B2;
+}

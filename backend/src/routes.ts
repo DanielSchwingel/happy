@@ -12,15 +12,20 @@ const routes = Router();
 const upload = multer(uploadConfig);
 
 routes.get('/orphanages', OrphanagesController.index);
-routes.get('/orphanages/:id', OrphanagesController.show);
 routes.post('/orphanages', upload.array('images') ,OrphanagesController.create);
+routes.put('/orphanages/:id', authMiddleware.verifyJWT, OrphanagesController.update);
+routes.get('/orphanages/:id', OrphanagesController.show);
 routes.delete('/orphanages/:id', authMiddleware.verifyJWT, OrphanagesController.delete);
+
 
 routes.post('/users', UsersController.create);
 routes.post('/authenticate', UsersController.authenticate);
 
 
-routes.get('/dashboard', authMiddleware.verifyJWT, OrphanagesController.indexDashboard);
+routes.get('/dashboard', authMiddleware.verifyJWT, OrphanagesController.index);
+routes.get('/pending', authMiddleware.verifyJWT, OrphanagesController.indexPending);
+
+
 
 
 

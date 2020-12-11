@@ -1,22 +1,25 @@
-import { Request, Response } from 'express';
+import { json, Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import Orphanage from '../models/Orphanage';
 import orphanageView from '../views/orphanages_view';
 import * as Yup from 'yup';
+import orphanages_view from '../views/orphanages_view';
 
 export default {
 	async index(request: Request, response: Response) {
 		const orphanagesRepository = getRepository(Orphanage);
 		const orphanages = await orphanagesRepository.find({
-			relations: ['images']
+			relations: ['images'],
+			where: { pending: 0 }
 		});
 		return response.json(orphanageView.renderMany(orphanages));	
 	},
 
-	async indexDashboard(request: Request, response: Response) {
+	async indexPending(request: Request, response: Response) {
 		const orphanagesRepository = getRepository(Orphanage);
 		const orphanages = await orphanagesRepository.find({
-			relations: ['images']
+			relations: ['images'],
+			where: { pending: 1 }
 		});
 		return response.json(orphanageView.renderMany(orphanages));	
 	},
@@ -64,6 +67,7 @@ export default {
 			instructions,
 			opening_hours,
 			open_on_weekends: open_on_weekends === 'true',
+			pending: 1,
 			images 
 		}
 
@@ -75,7 +79,7 @@ export default {
 			instructions: Yup.string().required(),
 			opening_hours: Yup.string().required(),
 			open_on_weekends: Yup.boolean().required(),
-			iamges: Yup.array(
+			images: Yup.array(
 				Yup.object().shape({
 					path: Yup.string().required()
 				})
@@ -89,5 +93,18 @@ export default {
 		const orphanage = orphanagesRepository.create(data); 
 		await orphanagesRepository.save(orphanage);
 		return response.status(201).json(orphanage);
-   },
+	},
+	
+	async update(request: Request, response: Response) {
+		const { id } = request.params;
+		console.log(id)
+		const orphanagesRepository = getRepository(Orphanage);
+		const orphanage = await orphanagesRepository.update(id, {
+			pending: 0
+		});
+		if (orphanage.affected === 1){
+			return response.status(201).json({orphanage});
+		}
+		console.log(orphanage.affected)
+	}
 }
