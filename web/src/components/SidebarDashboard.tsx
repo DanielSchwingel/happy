@@ -16,7 +16,7 @@ export default function SidebarDashboard() {
             <NavLink exact to="/orphanages" activeClassName="option-selected">
                <FiMapPin size={24} color="#FFF" />
             </NavLink>
-            <NavLink exact to="/" activeClassName="option-selected">
+            <NavLink exact to="/pending-orphanages" activeClassName="option-selected">
                <FiAlertCircle size={24} color="#FFF" />
             </NavLink>  
          </div>

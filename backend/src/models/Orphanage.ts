@@ -32,4 +32,7 @@ export default class Orphanage {
     })
     @JoinColumn({ name: 'ophanage_id' })
     images: Image[];
+
+    @Column()
+    pending: number;
 }

@@ -13,6 +13,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import Orphanages from './pages/Orphanages';
 import RemoveOrphanage from './pages/RemoveOrphanage';
+import PendingOrphanages from './pages/PendingOrphanages';
 
 function PrivateRoute({ ...rest }) {
 	const { signed } = useContext(AuthContext);
@@ -39,6 +40,7 @@ function Routes() {
 				<Route path='/orphanages/:id' component={Orphanage}/>
 				<PrivateRoute path='/orphanages' component={Orphanages}/>
 				<PrivateRoute path='/remove-orphanage/:id' component={RemoveOrphanage}/>
+				<Route path='/pending-orphanages' component={PendingOrphanages}/>
 			</Switch>
 		</Router>
 

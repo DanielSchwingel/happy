@@ -22,7 +22,7 @@ interface iOrphanage {
 	}>
 }
 
-const Orphanages: React.FC = () => {
+const PendingOrphanages: React.FC = () => {
    const [orphanages, setOrphanages] = useState<iOrphanage[]>();
 
    useEffect(()=>{
@@ -37,7 +37,7 @@ const Orphanages: React.FC = () => {
          <main>
             <header>
                <h1>
-                  Orfanatos Cadastrados
+                  Cadastros pendentes
                </h1>
                <span>
                   {orphanages?.length} orfanato(s)
@@ -57,4 +57,4 @@ const Orphanages: React.FC = () => {
    )
 };
 
-export default Orphanages;
+export default PendingOrphanages;
