@@ -37,7 +37,7 @@ const PendingOrphanages: React.FC = () => {
                   {orphanages?.length} orfanato(s)
                </span>
             </header>
-            {orphanages?.length != 0 ? (
+            {orphanages?.length !== 0 ? (
             <div className="orphanages-content">
                {orphanages?.map(orphanage =>{
                   return (

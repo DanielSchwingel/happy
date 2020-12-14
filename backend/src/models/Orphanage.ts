@@ -35,4 +35,7 @@ export default class Orphanage {
 
     @Column()
     pending: number;
+
+    @Column()
+    whatsapp: number;
 }

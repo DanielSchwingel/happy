@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Map, Marker, TileLayer } from "react-leaflet";
 import { Link } from 'react-router-dom';
 import { FiEdit3, FiTrash, FiArrowRight } from 'react-icons/fi';
+import { useHistory } from 'react-router-dom';
 
 import mapIcon from "../utils/mapIcon";
 import api from '../services/api';
@@ -25,24 +26,11 @@ interface iOrphanage {
 }
 
 const CardOrphanage: React.FC<iOrphanage> = (props) =>{
-   const [ orphanage, setOrphanage ] = useState<iOrphanage | any>();
+   const history = useHistory();
 
    async function handleConfirmOrphanage(){
-      const response = await api.get(`orphanages/${props.id}`);
-      setOrphanage(response.data);
-
-      const data = new FormData();
-
-      data.append('name', orphanage?.name);
-		data.append('about', orphanage?.about);
-		data.append('latitude', String(orphanage?.latitude));
-		data.append('longitude', String(orphanage?.longitude));
-		data.append('instructions', orphanage?.instructions);
-		data.append('opening_hours', orphanage?.opening_hours);
-      data.append('open_on_weekends', String(orphanage?.open_on_weekends));
-      data.append('pending', String(0));
-      
-      await api.put(`orphanages/${props.id}`, data ).then(response => alert('deu boa')).catch(error => alert(error));
+      await api.put(`orphanages/${props.id}`);
+      history.push('/orphanages');
       
    }
 

@@ -30,6 +30,7 @@ export default {
 		const orphanage = await orphanagesRepository.findOneOrFail(id,{
 			relations: ['images']
 		});
+		console.log({orphanage})
 		return response.json(orphanageView.render(orphanage));	
 	},
 
@@ -50,6 +51,7 @@ export default {
 			instructions,
 			opening_hours, 
 			open_on_weekends,
+			whatsapp,
 		} = request.body;
 		const orphanagesRepository = getRepository(Orphanage);
 
@@ -68,6 +70,7 @@ export default {
 			opening_hours,
 			open_on_weekends: open_on_weekends === 'true',
 			pending: 1,
+			whatsapp,
 			images 
 		}
 
@@ -79,6 +82,7 @@ export default {
 			instructions: Yup.string().required(),
 			opening_hours: Yup.string().required(),
 			open_on_weekends: Yup.boolean().required(),
+			whatsapp: Yup.number().required(),
 			images: Yup.array(
 				Yup.object().shape({
 					path: Yup.string().required()
@@ -97,14 +101,15 @@ export default {
 	
 	async update(request: Request, response: Response) {
 		const { id } = request.params;
-		console.log(id)
 		const orphanagesRepository = getRepository(Orphanage);
-		const orphanage = await orphanagesRepository.update(id, {
-			pending: 0
-		});
-		if (orphanage.affected === 1){
-			return response.status(201).json({orphanage});
+		try {
+			await orphanagesRepository.update(id, {
+				pending: 0
+			});
+			return response.sendStatus(200);
+		} catch (error) {
+			return response.sendStatus(500);
 		}
-		console.log(orphanage.affected)
+
 	}
 }

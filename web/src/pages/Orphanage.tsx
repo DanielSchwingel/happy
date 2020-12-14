@@ -8,29 +8,12 @@ import '../styles/pages/orphanage.css';
 import Sidebar from "../components/Sidebar";
 import mapIcon from "../utils/mapIcon";
 import api from "../services/api";
-
-interface Orphanage {
-	name: string;
-	latitude: number;
-	longitude: number;
-	about: string;
-	instructions: string;
-	opening_hours: string;
-	open_on_weekends: string;
-	images: Array<{
-		id: number;
-		url: string;
-	}>
-}
-
-interface OrphanageParams {
-	id: string,
-}
+import { iOrphanage, iOrphanageParams } from "../interfaces/orphanage"
 
 export default function Orphanage() {
-	const [orphanage, setOrphanage] = useState<Orphanage>();
+	const [orphanage, setOrphanage] = useState<iOrphanage>();
 	const [activeImageIndex, setActiveImageIndex] = useState(0)
-	const params = useParams<OrphanageParams>();
+	const params = useParams<iOrphanageParams>();
 	useEffect(()=> {
 		api.get(`orphanages/${params.id}`).then(response => {
 			setOrphanage(response.data);
@@ -114,11 +97,15 @@ export default function Orphanage() {
 						</div>
 					)}
             </div>
-
-            {/* <button type="button" className="contact-button">
-              <FaWhatsapp size={20} color="#FFF" />
-              Entrar em contato
-            </button> */}
+				<a 
+					target="_blank" 
+					rel="noopener noreferrer" 
+					href={`https://api.whatsapp.com/send?l=pt_BR&phone=55${orphanage.whatsapp}&text=Oi, quero conversar sobre visitas no ${orphanage.name}.`} 
+					className="contact-button"
+				>
+					<FaWhatsapp size={20} color="#FFF" />
+					Entrar em contato
+            </a>
           </div>
         </div>
       </main>
