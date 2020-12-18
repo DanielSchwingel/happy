@@ -6,7 +6,9 @@ export default class Orphanage {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Column()
+    @Column({
+        nullable:false
+    })
     name: string;
 
     @Column()
@@ -28,7 +30,9 @@ export default class Orphanage {
     open_on_weekends: boolean;
 
     @OneToMany(() => Image, image => image.orphanage, {
-        cascade: ['insert', 'update']
+        cascade: true,
+        eager: true,
+        
     })
     @JoinColumn({ name: 'ophanage_id' })
     images: Image[];

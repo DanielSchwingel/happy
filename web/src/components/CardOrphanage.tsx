@@ -29,7 +29,9 @@ const CardOrphanage: React.FC<iOrphanage> = (props) =>{
    const history = useHistory();
 
    async function handleConfirmOrphanage(){
-      await api.put(`orphanages/${props.id}`);
+      const data = new FormData();
+      data.append('pending', String(0));
+      await api.put(`orphanages/${props.id}`, data);
       history.push('/orphanages');
       
    }
@@ -54,7 +56,7 @@ const CardOrphanage: React.FC<iOrphanage> = (props) =>{
             <p>{props.name}</p>
             {props.pending === 0 ? (
                <div className="options">
-                  <Link to="">
+                  <Link to={`/alter-orphanage/${props.id}`}>
                      <FiEdit3 size={24} color="#15C3D6" />
                   </Link>
                   <Link to={`/remove-orphanage/${props.id}`}>

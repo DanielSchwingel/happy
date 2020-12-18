@@ -1,9 +1,8 @@
-import { json, Request, Response } from 'express';
-import { getRepository } from 'typeorm';
+import { Request, Response } from 'express';
+import { getRepository, UpdateDateColumn } from 'typeorm';
 import Orphanage from '../models/Orphanage';
 import orphanageView from '../views/orphanages_view';
 import * as Yup from 'yup';
-import orphanages_view from '../views/orphanages_view';
 
 export default {
 	async index(request: Request, response: Response) {
@@ -27,10 +26,7 @@ export default {
 	async show(request: Request, response: Response) {
 		const { id } = request.params;
 		const orphanagesRepository = getRepository(Orphanage);
-		const orphanage = await orphanagesRepository.findOneOrFail(id,{
-			relations: ['images']
-		});
-		console.log({orphanage})
+		const orphanage = await orphanagesRepository.findOneOrFail(id);
 		return response.json(orphanageView.render(orphanage));	
 	},
 
@@ -56,11 +52,10 @@ export default {
 		const orphanagesRepository = getRepository(Orphanage);
 
 		const requestImages = request.files as Express.Multer.File[];
-
 		const images = requestImages.map(image => {
 			return { path: image.filename }
 		})
-
+		console.log(images);
 		const data = {
 			name,
 			latitude,
@@ -98,17 +93,51 @@ export default {
 		await orphanagesRepository.save(orphanage);
 		return response.status(201).json(orphanage);
 	},
-	
+
 	async update(request: Request, response: Response) {
 		const { id } = request.params;
+		const {
+			name,
+			latitude,
+			longitude,
+			about,
+			instructions,
+			opening_hours,
+			open_on_weekends,
+			pending,
+			whatsapp
+		} = request.body;
+
+		const requestImages = request.files as Express.Multer.File[];
+
+		const images = requestImages.map(image => {
+			return { path: image.filename }
+		})
+
 		const orphanagesRepository = getRepository(Orphanage);
+		const data = {
+			id : Number(id),
+			name: name,
+			latitude,
+			longitude,
+			about,
+			instructions,
+			open_on_weekends : open_on_weekends === 'true',
+			opening_hours,
+			whatsapp,
+			pending,
+			images
+		};
 		try {
-			await orphanagesRepository.update(id, {
-				pending: 0
-			});
-			return response.sendStatus(200);
+			const orphanage = await orphanagesRepository.preload(data);			
+			await orphanagesRepository.save(orphanage as Orphanage);
+			return response.json(orphanage)
+			
+			
+			
+			// return response.sendStatus(200);
 		} catch (error) {
-			return response.sendStatus(500);
+			return response.status(500).json({error});
 		}
 
 	}

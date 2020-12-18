@@ -12,3 +12,8 @@ body {
 body, input, button, textarea {
     font: 600 18px Nunito, sans-serif;
 }
+
+textarea:focus, input:focus {
+    box-shadow: 0 0 0 0;
+    outline: 0;
+} 

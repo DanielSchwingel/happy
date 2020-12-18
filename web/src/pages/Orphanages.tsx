@@ -20,7 +20,7 @@ const Orphanages: React.FC = () => {
    useEffect(()=>{
       api.get('dashboard').then( response =>{
          setOrphanages(response.data);
-		}).catch(error=>alert(error));
+		}).catch(error=>console.log(`aqui ${error}`));
    },[])
 
    return (

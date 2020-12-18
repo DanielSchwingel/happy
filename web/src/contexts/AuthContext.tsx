@@ -8,9 +8,11 @@ const AuthContext = createContext<iUserContext>({} as iUserContext);
 
 const AuthProvider: React.FC = ({ children })=> {
    const [ user, setUser ] = useState<Object | null>(null); 
-   const [ loading, setLoading] = useState(true);
+   const [ loading, setLoading ] = useState(true);
+   const [ remember, setRemember ] = useState(true)
 
    useEffect(()=>{
+      if (!remember) return; 
       const userStorage = localStorage.getItem('@HAPPYAuth:user');
       const tokenStorage = localStorage.getItem('@HAPPYAuth:token');
 
@@ -22,20 +24,21 @@ const AuthProvider: React.FC = ({ children })=> {
    },[])
 
    async function signIn(userLogin: iUserLogin){
-      const { email, password } = userLogin;
+      const { email, password, remember } = userLogin;
+      setRemember(remember);
       const response = await api.post('/authenticate', { email, password })
 
       if (response.status !== 401) {
          const { user, token } = response.data;
 
-         localStorage.setItem('@HAPPYAuth:user', JSON.stringify(user))
-         localStorage.setItem('@HAPPYAuth:token', JSON.stringify(token))
-         api.defaults.headers.Authorization = `Bearer ${token}`;
+         if (remember) {
+            localStorage.setItem('@HAPPYAuth:user', JSON.stringify(user))
+            localStorage.setItem('@HAPPYAuth:token', JSON.stringify(token))
+         }
+         api.defaults.headers.authorization = `Bearer ${token}`;
          setUser(user);
-         console.log(`user ${Boolean(user)}`)
          history.push('/orphanages')
       }
-
    }
 
    function signOut(){
@@ -45,12 +48,8 @@ const AuthProvider: React.FC = ({ children })=> {
       history.push('/login')
    }
 
-   if (loading) {
-      return <h1>Carregando...</h1>
-   }
-
    return(
-      <AuthContext.Provider value={{signed: Boolean(user), user, signIn, signOut }}>
+      <AuthContext.Provider value={{signed: Boolean(user), user, signIn, signOut, loading }}>
          {children}
       </AuthContext.Provider>
    )

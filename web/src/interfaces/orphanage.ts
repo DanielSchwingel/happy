@@ -6,7 +6,7 @@ interface iOrphanage {
 	instructions: string;
 	opening_hours: string;
 	open_on_weekends: string;
-	whatsapp: number,
+	whatsapp: number;
 	images: Array<{
 		id: number;
 		url: string;
@@ -14,7 +14,7 @@ interface iOrphanage {
 }
 
 interface iOrphanageParams {
-	id: string,
+	id: string;
 }
 
 export type { iOrphanage, iOrphanageParams }

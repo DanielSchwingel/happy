@@ -15,10 +15,16 @@ import Orphanages from './pages/Orphanages';
 import RemoveOrphanage from './pages/RemoveOrphanage';
 import PendingOrphanages from './pages/PendingOrphanages';
 import ConfirmOrphanage from './pages/ConfirmOrphanage';
+import AlterOrphanage from './pages/AlterOrphanage';
 
 function PrivateRoute({ ...rest }) {
-	const { signed } = useContext(AuthContext);
-	console.log(signed);
+	const { signed, loading } = useContext(AuthContext);
+
+	if(loading) {
+		return <h1>Carregando...</h1>
+
+	}
+
 	if (!signed) {
 		return <Redirect to='/login'/>
 		
@@ -41,8 +47,9 @@ function Routes() {
 				<Route path='/orphanages/:id' component={Orphanage}/>
 				<PrivateRoute path='/orphanages' component={Orphanages}/>
 				<PrivateRoute path='/remove-orphanage/:id' component={RemoveOrphanage}/>
-				<Route path='/pending-orphanages' component={PendingOrphanages}/>
-				<Route path='/confirm-orphanage' component={ConfirmOrphanage}/>
+				<PrivateRoute path='/pending-orphanages' component={PendingOrphanages}/>
+				<PrivateRoute path='/confirm-orphanage' component={ConfirmOrphanage}/>
+				<PrivateRoute path='/alter-orphanage/:id' component={AlterOrphanage} />
 			</Switch>
 		</Router>
 

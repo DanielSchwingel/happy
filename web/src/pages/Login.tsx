@@ -10,16 +10,16 @@ function Login(){
     const { signIn } = useContext(AuthContext)
     const [ email, setEmail ] =  useState('');
     const [ password, setPassword ] = useState('');
+    const [ remember, setRemember ] = useState(true); 
 
     function handleLogin(event: FormEvent) {
         event.preventDefault();
         const user = {
             email,
-            password
+            password,
+            remember,
         } as iUserLogin;
-        signIn(user).catch(error => {
-            alert(error)
-        });
+        signIn(user);
     }
 
     return(
@@ -46,10 +46,17 @@ function Login(){
                         value={password}
                         onChange={event=> (setPassword(event.target.value))}
                     />
-    P          </div>
+                </div>
                 <div className="field-row">
-                    <div style={{display:'flex', alignItems:'center'}}>
-                        <input type="checkbox" /> <span>Lembrar-me</span>
+                {/* style={{display:'flex', alignItems:'center'}} */}
+                    <div>
+                        <input 
+                            type="checkbox"
+                            id="remember"
+                            checked={remember}
+                            onChange={()=> setRemember(!remember)}
+                        />
+                        <label htmlFor="remember">Lembrar-me</label>
                     </div>
                     <Link to='/forgot-password' className="forgot-password">
                         Esqueci minha senha
