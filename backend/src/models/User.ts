@@ -13,4 +13,11 @@ export default class User {
 
     @Column()
     password: string;
+
+    @Column()
+    token_rp: string;
+
+    @Column()
+    date_expiration_rp: Date;
+
 }

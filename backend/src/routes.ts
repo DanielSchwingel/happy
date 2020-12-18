@@ -19,6 +19,7 @@ routes.delete('/orphanages/:id', authMiddleware.verifyJWT, OrphanagesController.
 
 
 routes.post('/users', UsersController.create);
+routes.post('/forgot-password', UsersController.forgot_password);
 routes.post('/authenticate', UsersController.authenticate);
 
 
