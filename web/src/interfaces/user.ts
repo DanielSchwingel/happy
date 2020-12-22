@@ -12,4 +12,8 @@ interface iUserContext {
    loading: boolean,
 }
 
-export type { iUserContext, iUserLogin }
+interface iResetPassword {
+   token: string,
+}
+
+export type { iUserContext, iUserLogin, iResetPassword }

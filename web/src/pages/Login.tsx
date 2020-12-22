@@ -19,7 +19,7 @@ function Login(){
             password,
             remember,
         } as iUserLogin;
-        signIn(user);
+        signIn(user).catch(() => alert('Dados inválidos'));
     }
 
     return(
@@ -48,7 +48,6 @@ function Login(){
                     />
                 </div>
                 <div className="field-row">
-                {/* style={{display:'flex', alignItems:'center'}} */}
                     <div>
                         <input 
                             type="checkbox"

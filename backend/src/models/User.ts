@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert, BeforeUpdate } from 'typeorm';
+import bcrypt from 'bcrypt';
 
 @Entity('users')
 export default class User {
@@ -19,5 +20,11 @@ export default class User {
 
     @Column()
     date_expiration_rp: Date;
+
+    @BeforeInsert()
+    @BeforeUpdate()
+    hashPassword(){
+        this.password = bcrypt.hashSync(this.password, 10);
+    };
 
 }

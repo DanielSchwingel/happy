@@ -12,9 +12,9 @@ function ForgotPassword(){
 
     async function handleSubmit(event: FormEvent){
         event.preventDefault();
-        setMessage('dadsad')
         await api.post('forgot-password', { email } )
             .then((response)=>{
+                alert(response.data.success);
                 if (response.data.success === true) history.push('/login');    
                 
                 setMessage(response.data.error);         

@@ -12,11 +12,8 @@ const saltRoudns = 10;
 
 export default {
    async create(request: Request, response: Response){
-      const { name, email, password } = request.body;
+      const { name, email, password } = request.body;      
 
-      const salt = bcrypt.genSaltSync(saltRoudns);
-      const passwordCrypt = bcrypt.hashSync(password, salt);
-      
       const userRepository = getRepository(User);
 
       const schema = Yup.object().shape({
@@ -24,8 +21,8 @@ export default {
          email: Yup.string().required(),
          password: Yup.string().required(),
       });
-      
-      const data = { name, email, password: passwordCrypt }
+
+      const data = { name, email, password };
 
 		await schema.validate(data, {
 			abortEarly: false,
@@ -69,7 +66,6 @@ export default {
       const { email } = request.body;
       const userRepository = getRepository(User);
       const user = await userRepository.findOne({email});
-      console.log(user);
       if (!user) {
          return response.json({ 
             success: false,
@@ -88,18 +84,41 @@ export default {
       })
 
       try {
-         mailer.sendMail({
+         await mailer.sendMail({
             from: process.env.AUTH_USER_MAIL,
             to: email,
             subject: `Recuperação de senha: ${user.name}`,
-            text: `Atualize sua senha através do seguinte link http://localhost:3333/reset-password/${tokenResetPassword}`
+            text: `Atualize sua senha através do seguinte link http://localhost:3333/reset-password?token=${tokenResetPassword}`
          })
-         return response.sendStatus(200);
+
+         
+         return response.status(200).json({
+            success: true
+         });
       } catch (error) {
          return response.status(500).json({ 
             success: false,
             error: `Não foi possível enviar o e-mail: ${error}` 
          });
       }
+   },
+
+   async reset_password(request: Request, response: Response) {
+      const { tokenResetPassword, password } = request.body;
+      const userRepository = getRepository(User);
+      const user = await userRepository.findOne({ token_rp: tokenResetPassword });
+      const now = new Date;
+      if (user) {
+         user.password = password;
+         if (user?.date_expiration_rp > now) {
+            await userRepository.save(user)
+            return response.status(200);
+         }else{
+            return response.status(500).json({erro: 'Link expired'})
+         }
+      }
+
+      return response.status(404).json({erro: 'Token invalid'})
+
    }
 }

@@ -3,11 +3,10 @@ import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
 const settingsMail = {
    host: process.env.HOST_MAIL,
-   port: process.env.PORT_MAIL,
-   secure: process.env.SECURE_MAIL,
+   port: Number(process.env.PORT_MAIL),
    auth: {
       user: process.env.AUTH_USER_MAIL,
-      password: process.env.AUTH_PASSWORD_MAIL,
+      pass: process.env.AUTH_PASSWORD_MAIL,
    }
 
 } as SMTPTransport.Options;

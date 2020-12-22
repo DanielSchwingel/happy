@@ -20,11 +20,13 @@ routes.delete('/orphanages/:id', authMiddleware.verifyJWT, OrphanagesController.
 
 routes.post('/users', UsersController.create);
 routes.post('/forgot-password', UsersController.forgot_password);
+routes.post('/reset-password', UsersController.reset_password);
 routes.post('/authenticate', UsersController.authenticate);
 
 
 routes.get('/dashboard', authMiddleware.verifyJWT, OrphanagesController.index);
 routes.get('/pending', authMiddleware.verifyJWT, OrphanagesController.indexPending);
+
 
 
 
