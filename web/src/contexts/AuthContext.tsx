@@ -21,7 +21,7 @@ const AuthProvider: React.FC = ({ children })=> {
          setUser(JSON.parse(userStorage))
       }
       setLoading(false);
-   },[])
+   },[remember])
 
    async function signIn(userLogin: iUserLogin){
       const { email, password, remember } = userLogin;

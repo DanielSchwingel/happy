@@ -10,7 +10,7 @@ export default function App() {
 		Nunito_700Bold,
 		Nunito_800ExtraBold
 	}); 
-
+	
 	if (!fontsLoaded) {
 		return null;
 	}
