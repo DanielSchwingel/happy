@@ -88,7 +88,7 @@ export default {
             from: process.env.AUTH_USER_MAIL,
             to: email,
             subject: `Recuperação de senha: ${user.name}`,
-            text: `Atualize sua senha através do seguinte link http://localhost:3333/reset-password?token=${tokenResetPassword}`
+            text: `Atualize sua senha através do seguinte link http://localhost:3000/reset-password?token=${tokenResetPassword}`
          })
 
          
@@ -111,8 +111,8 @@ export default {
       if (user) {
          user.password = password;
          if (user?.date_expiration_rp > now) {
-            await userRepository.save(user)
-            return response.status(200);
+            await userRepository.save(user);
+            return response.sendStatus(200);
          }else{
             return response.status(500).json({erro: 'Link expired'})
          }

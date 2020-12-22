@@ -8,16 +8,16 @@ import api from '../services/api';
 
 function ForgotPassword(){
     const [ email, setEmail ] = useState('');
-    const [ message, setMessage ] = useState('');
 
     async function handleSubmit(event: FormEvent){
         event.preventDefault();
         await api.post('forgot-password', { email } )
             .then((response)=>{
-                alert(response.data.success);
-                if (response.data.success === true) history.push('/login');    
-                
-                setMessage(response.data.error);         
+                if (response.data.success === true) {
+                    alert('Senha alterada, verifique ')
+                    history.push('/login');    
+                } 
+                alert(response.data.error);         
             })
             .catch((error) => {
                 alert(error)
@@ -42,7 +42,6 @@ function ForgotPassword(){
                     />
                 </div>
                 <button type='submit' className='button-submit'>Enviar</button>
-                { message !== '' ? <p className="error">{message}</p> : null}
             </form>
         </Branding>
     )

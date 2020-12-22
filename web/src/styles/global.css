@@ -16,9 +16,4 @@ body, input, button, textarea {
 textarea:focus, input:focus {
     box-shadow: 0 0 0 0;
     outline: 0;
-} 
-
-p.error {
-    color: red !important;
-    text-align: center;
 }

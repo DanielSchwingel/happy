@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
-import { getRepository, UpdateDateColumn } from 'typeorm';
+import { getRepository } from 'typeorm';
 import Orphanage from '../models/Orphanage';
 import orphanageView from '../views/orphanages_view';
 import * as Yup from 'yup';
+import fs from 'fs';
 
 export default {
 	async index(request: Request, response: Response) {
@@ -30,10 +31,16 @@ export default {
 		return response.json(orphanageView.render(orphanage));	
 	},
 
-	delete(request: Request, response: Response) {
+	async delete(request: Request, response: Response) {
 		const { id } = request.params;
 		const orphanagesRepository = getRepository(Orphanage);
-		orphanagesRepository.delete(id).then(()=> {
+		const orphanage = await orphanagesRepository.findOne(id);
+		orphanagesRepository.remove(orphanage as Orphanage).then(()=> {
+			orphanage?.images.map(image => {
+				fs.unlink(`uploads/${image.path}`, (err) => {
+					console.log(err)
+				})
+			})
 			return response.sendStatus(200);
 		})
 	},
