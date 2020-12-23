@@ -6,9 +6,12 @@ import OrphanagesMap from './pages/OrphanagesMap';
 import OrphanageDetails from './pages/OrphanageDetails';
 import SelectMapPosition from './pages/CreateOrphanage/SelectMapPosition';
 import OrphanageData from './pages/CreateOrphanage/OrphanageData';
+import CancelOrphanage from './pages/CreateOrphanage/CancelOrphanage';
+import ConfirmOrphanage from './pages/CreateOrphanage/ConfirmOrphange';
 
 import Header from './components/Header';
 import Presentation from './pages/Presentation';
+
 
 
 const { Navigator, Screen } = createStackNavigator();
@@ -43,6 +46,8 @@ export default function Routes(){
                         header: ()=> <Header title='Informe os dados'/>
                     }}
                 />
+                <Screen name="CancelOrphanage" component={CancelOrphanage} />
+                <Screen name="ConfirmOrphanage" component={ConfirmOrphanage} />
             </Navigator>
         </NavigationContainer>
     )

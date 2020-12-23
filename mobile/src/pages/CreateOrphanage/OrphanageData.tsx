@@ -15,50 +15,46 @@ interface OrphanageDataRouteParams{
 }
 
 export default function OrphanageData() {
-  const [name, setName] = useState('');
-  const [about, setAbout] = useState('');
-  const [instructions, setInstructions] = useState('');
-  const [opening_hours, setOpeningHours] = useState('');
-  const [open_on_weekends, setOpenOnWeekends] = useState(true);
-  const [images, setImages] = useState<string[]>([])
+	const [name, setName] = useState('');
+	const [about, setAbout] = useState('');
+	const [instructions, setInstructions] = useState('');
+	const [opening_hours, setOpeningHours] = useState('');
+	const [ whatsapp, setWhatsapp ] = useState('');
+	const [open_on_weekends, setOpenOnWeekends] = useState(true);
+	const [images, setImages] = useState<string[]>([])
 
-  const navigation = useNavigation();
-  const route = useRoute();
-  const params = route.params as OrphanageDataRouteParams;
+	const navigation = useNavigation();
+	const route = useRoute();
+	const params = route.params as OrphanageDataRouteParams;
 
-  async function handleCreateOrphanage(){
-    const { latitude, longitude } = params.position;
-    console.log({
-      name,
-      about,
-      instructions,
-      opening_hours,
-      open_on_weekends,
-      latitude,
-      longitude      
-    })
+  	async function handleCreateOrphanage(){
+		const { latitude, longitude } = params.position;
 
-    const data = new FormData();
-    data.append('name', name);
-    data.append('about', about);
-    data.append('latitude', String(latitude));
-    data.append('longitude', String(longitude));
-    data.append('instructions', instructions);
-    data.append('opening_hours', opening_hours);
-    data.append('open_on_weekends', String(open_on_weekends));
+		const data = new FormData();
+		data.append('name', name);
+		data.append('about', about);
+		data.append('latitude', String(latitude));
+		data.append('longitude', String(longitude));
+		data.append('instructions', instructions);
+		data.append('opening_hours', opening_hours);
+		data.append('whatsapp', whatsapp);
+		data.append('open_on_weekends', String(open_on_weekends));
 
-    images.forEach(( image,index ) => {
-      data.append('images', {
-        name: `image_${index}.jpg`,
-        type: 'image/jpg',
-        uri: image,
-      } as any)
-    })
+		images.forEach(( image,index ) => {
+			data.append('images', {
+				name: `image_${index}.jpg`,
+				type: 'image/jpg',
+				uri: image,
+			} as any)
+		})
 
-    await api.post('orphanages', data);
+		await api.post('orphanages', data)
+			.then(() => {
+				navigation.navigate('ConfirmOrphanage');
+			}) 
+			.catch(error => alert(error));
 
-    navigation.navigate('OrphanagesMap');
-  };
+   };
 
   async function handleSelectImages(){
     const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -104,7 +100,10 @@ export default function OrphanageData() {
 
       <Text style={styles.label}>Whatsapp</Text>
       <TextInput
+        keyboardType='number-pad'
         style={styles.input}
+        value={whatsapp}
+        onChangeText={setWhatsapp}
       />
 
       <Text style={styles.label}>Fotos</Text>

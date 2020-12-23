@@ -95,7 +95,6 @@ export default {
 		await schema.validate(data, {
 			abortEarly: false,
 		});
-
 		const orphanage = orphanagesRepository.create(data); 
 		await orphanagesRepository.save(orphanage);
 		return response.status(201).json(orphanage);
