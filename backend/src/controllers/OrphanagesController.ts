@@ -9,26 +9,24 @@ export default {
 	async index(request: Request, response: Response) {
 		const orphanagesRepository = getRepository(Orphanage);
 		const orphanages = await orphanagesRepository.find({
-			relations: ['images'],
 			where: { pending: 0 }
 		});
-		return response.json(orphanageView.renderMany(orphanages));	
+		return response.status(200).json(orphanageView.renderMany(orphanages));	
 	},
 
 	async indexPending(request: Request, response: Response) {
 		const orphanagesRepository = getRepository(Orphanage);
 		const orphanages = await orphanagesRepository.find({
-			relations: ['images'],
 			where: { pending: 1 }
 		});
-		return response.json(orphanageView.renderMany(orphanages));	
+		return response.status(200).json(orphanageView.renderMany(orphanages));	
 	},
 
 	async show(request: Request, response: Response) {
 		const { id } = request.params;
 		const orphanagesRepository = getRepository(Orphanage);
 		const orphanage = await orphanagesRepository.findOneOrFail(id);
-		return response.json(orphanageView.render(orphanage));	
+		return response.status(200).json(orphanageView.render(orphanage));	
 	},
 
 	async delete(request: Request, response: Response) {
@@ -37,9 +35,7 @@ export default {
 		const orphanage = await orphanagesRepository.findOne(id);
 		orphanagesRepository.remove(orphanage as Orphanage).then(()=> {
 			orphanage?.images.map(image => {
-				fs.unlink(`uploads/${image.path}`, (err) => {
-					console.log(err)
-				})
+				fs.unlinkSync(`uploads/${image.path}`);
 			})
 			return response.sendStatus(200);
 		})
