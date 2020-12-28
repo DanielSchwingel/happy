@@ -18,7 +18,7 @@ const Orphanages: React.FC = () => {
    const [orphanages, setOrphanages] = useState<iOrphanage[]>();
 
    useEffect(()=>{
-      api.get('dashboard').then( response =>{
+      api.get('orphanages').then( response =>{
          setOrphanages(response.data);
 		}).catch(error=>console.log(`aqui ${error}`));
    },[])

@@ -20,7 +20,7 @@ const PendingOrphanages: React.FC = () => {
    const [orphanages, setOrphanages] = useState<iOrphanage[]>();
 
    useEffect(()=>{
-      api.get('pending').then( response =>{
+      api.get('orphanages-pending').then( response =>{
 			setOrphanages(response.data);
 		}).catch(error=>alert(error));
    },[])

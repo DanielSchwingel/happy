@@ -14,12 +14,9 @@ const upload = multer(uploadConfig);
 routes.get('/orphanages', OrphanagesController.index);
 routes.post('/orphanages', upload.array('images') ,OrphanagesController.create);
 routes.delete('/orphanages/:id', authMiddleware.verifyJWT, OrphanagesController.delete);
-
-
 routes.put('/orphanages/:id', authMiddleware.verifyJWT, upload.array('images'), OrphanagesController.update);
 routes.get('/orphanages/:id', OrphanagesController.show);
-
-
+routes.get('/orphanages-pending', authMiddleware.verifyJWT, OrphanagesController.indexPending);
 
 routes.post('/users', UsersController.create);
 routes.post('/forgot-password', UsersController.forgot_password);
@@ -27,8 +24,6 @@ routes.post('/reset-password', UsersController.reset_password);
 routes.post('/authenticate', UsersController.authenticate);
 
 
-routes.get('/dashboard', authMiddleware.verifyJWT, OrphanagesController.index);
-routes.get('/pending', authMiddleware.verifyJWT, OrphanagesController.indexPending);
 
 
 

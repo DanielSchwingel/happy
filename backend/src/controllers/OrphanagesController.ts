@@ -19,6 +19,7 @@ export default {
 		const orphanages = await orphanagesRepository.find({
 			where: { pending: 1 }
 		});
+		console.log(orphanages);
 		return response.status(200).json(orphanageView.renderMany(orphanages));	
 	},
 
@@ -58,7 +59,7 @@ export default {
 		const images = requestImages.map(image => {
 			return { path: image.filename }
 		})
-		console.log(images);
+
 		const data = {
 			name,
 			latitude,
